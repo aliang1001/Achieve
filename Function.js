@@ -1,3 +1,61 @@
+// 实现chunk
+function chunk(arr, size = 0) {
+  let current = 0;
+  let temp = [];
+  return arr.reduce(
+    (acc, cur, i) =>
+      temp.push(...(current++ < size ? [cur] : [])) === size ||
+      i === arr.length - 1
+        ? [...acc, temp, ...((current = 0), (temp = []), [])]
+        : acc,
+    []
+  );
+}
+
+//实现compact
+function compact(array){
+  if(!array || !Array.isArray(array) || array.length<=0){
+      return [];
+  }
+
+  return array.filter(function (value){
+      if(value) return value;
+  });
+
+}
+
+// concat实现
+function concat(array){
+  if(!array || !Array.isArray(array)|| array.length<=0){
+      return [];
+  }
+  if(arguments.length<=1){
+      return array.concat();
+  }else{
+      var args=Array.from(arguments);
+      var arg= args.splice(1,1);
+      args[0]=array.concat(arg);
+      return concat.apply(this,args);
+  }
+}
+
+//实现unzip
+function unzip(arrs) {
+  return arrs.reduce((acc, arr) => {
+    arr.forEach((item, index) => {
+      acc[index] = acc[index] || [];
+      acc[index].push(item)
+    })
+    return acc
+  }, [])
+}
+//drop
+function drop(array, n) {
+  //深入贯彻函数式编程
+  return array.join('').substring(n,).split('').map(v => Number(v))
+}
+drop([1,2,3], 1) // [2,3]
+
 // 实现new 
     //思路：
     // 1.创建一个空对象
